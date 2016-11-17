@@ -1,0 +1,19 @@
+$colors:(link:rgb(0, 0, 255));
+
+$margins:(controls:8px);
+
+@mixin clickable{
+  cursor: pointer;
+  user-select: none;
+}
+
+h3{
+  @include clickable;
+}
+
+.link{
+  @include clickable;
+  color: map-get($colors, link);
+  text-decoration: underline;
+  margin:map-get($margins, controls);
+}
