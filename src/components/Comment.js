@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import {Comment as CommentShape} from '../shapes'
 
 function Comment(props) {
     const { title, text, user } = props.comment
@@ -12,7 +13,7 @@ function Comment(props) {
 }
 
 Comment.propTypes = {
-    comment: PropTypes.object.isRequired
+    comment: CommentShape
 }
 
 export default Comment
