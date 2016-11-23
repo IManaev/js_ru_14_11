@@ -7,6 +7,7 @@ import React from 'react'
 export default (Component) => class WrappedComponent extends React.Component {
     constructor() {
         super()
+        //ок, но this.state === undefined в {...this.state}
         this.state = {...this.state,selectedItemId: null}
     }
 
