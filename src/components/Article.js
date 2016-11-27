@@ -11,11 +11,11 @@ class Article extends Component {
 */
 
     componentWillUpdate() {
-        console.log('---', 'updating Article')
+        // console.log('---', 'updating Article')
     }
 
     componentDidUpdate() {
-        console.log('---', findDOMNode(this.refs.comments))
+        // console.log('---', findDOMNode(this.refs.comments))
     }
 
     render() {

@@ -11,12 +11,12 @@ class ArticleList extends Component {
     }
 
     componentWillMount() {
-        console.log('---', 'mounting')
+        // console.log('---', 'mounting')
     }
 
     componentDidMount() {
-        console.log('---', 'mounted', this.containerRef)
-        console.log('---', this.refs)
+        // console.log('---', 'mounted', this.containerRef)
+        // console.log('---', this.refs)
     }
 
     componentWillReceiveProps(nexProps) {

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import Comment from './Comment'
+import AddComment from './AddComment'
 import toggleOpen from '../decorators/toggleOpen'
 
 class CommentList extends Component {
@@ -29,6 +30,7 @@ class CommentList extends Component {
             <div>
                 {this.getButton()}
                 {this.getList()}
+                <AddComment/>
             </div>
         )
     }
@@ -37,7 +39,7 @@ class CommentList extends Component {
     getButton() {
         const { comments, isOpen, toggleOpen } = this.props
         if ( !comments.length) return <span>No comments yet</span>
-        return <a href="#" onClick = {toggleOpen}>{isOpen ? 'hide' : 'show'} comments</a>
+        return <a href="javascript:void(0)" onClick = {toggleOpen}>{isOpen ? 'hide' : 'show'} comments</a>
     }
 
     getList() {
