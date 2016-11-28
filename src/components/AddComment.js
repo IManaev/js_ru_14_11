@@ -19,6 +19,7 @@ class AddComment extends Component {
         }
     }
     handleChange(field,event){
+        //не надо, setState сам делает мердж
         this.setState({...this.state,[field]:event.target.value})
     }
     handleClick = ev =>{
