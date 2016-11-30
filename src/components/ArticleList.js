@@ -25,7 +25,7 @@ class ArticleList extends Component {
         console.log('---', 'mounted', this.containerRef)
         console.log('---', this.refs)
     }
-    
+    //лучше эту логику вынести в connect
     get articles(){
         const { articles, filters } = this.props
         return articles.filter(item => {
