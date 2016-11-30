@@ -15,6 +15,7 @@ const defaultFiltersState = {
 export default (state=defaultFiltersState,action) => {
     const {type,payload} = action
     switch(type){
+        //лучше разбей на 2 AC
         case UPDATE_FILTERS : {
             return {...state,...payload}
         }
