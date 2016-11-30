@@ -8,7 +8,13 @@ class ArticleList extends Component {
         articles: PropTypes.array.isRequired,
         //from accordion decorator
         isOpen: PropTypes.func.isRequired,
-        toggleOpenItem: PropTypes.func.isRequired
+        toggleOpenItem: PropTypes.func.isRequired,
+        filters:PropTypes.shape({
+            from:PropTypes.date,
+            to:PropTypes.date,
+            label:PropTypes.string,
+            value:PropTypes.string,
+        })
     }
 
     componentWillMount() {
@@ -19,7 +25,27 @@ class ArticleList extends Component {
         console.log('---', 'mounted', this.containerRef)
         console.log('---', this.refs)
     }
-
+    
+    get articles(){
+        const { articles, filters } = this.props
+        return articles.filter(item => {
+            if(filters.from){
+                return new Date(item.date) >= filters.from
+            }
+            return true
+        }).filter(item => {
+            if(filters.from){
+                return new Date(item.date) <= filters.to
+            }
+            return true
+        }).filter(item => {
+            if(filters.value){
+                return item.id == filters.value
+            }
+            return true
+        })
+    }
+    
     componentWillReceiveProps(nexProps) {
         //console.log('isEqual', Object.keys(nexProps).every(key => nexProps[key] == this.props[key]))
         //console.log('---', 'AL receiving props')
@@ -35,9 +61,8 @@ class ArticleList extends Component {
 
 
     render() {
-        const { articles, isOpen, toggleOpenItem } = this.props
-
-        const articleItems = articles.map(article => (
+        const { isOpen, toggleOpenItem } = this.props
+        const articleItems = this.articles.map(article => (
             <li key = {article.id}>
                 <Article
                     article = {article}
@@ -56,5 +81,6 @@ class ArticleList extends Component {
 }
 
 export default connect(state => ({
-    articles: state.articles
+    articles: state.articles,
+    filters: state.filters
 }))(accordion(ArticleList))
