@@ -3,7 +3,7 @@ import { findDOMNode } from 'react-dom'
 import CommentList from './CommentList'
 import { deleteArticle } from '../AC/articles'
 import { connect } from 'react-redux'
-
+import { postComment } from '../AC/comments'
 class Article extends Component {
 
 /*
@@ -31,18 +31,22 @@ class Article extends Component {
         )
     }
 
-
     getBody() {
         const { article, isOpen } = this.props
         if (!isOpen) return null
         return (
             <div>
                 <p>{article.text}</p>
-                <CommentList commentIds = {article.comments} ref = "comments" />
+                <CommentList postComment={this.handlePostComment} commentIds = {article.comments} ref = "comments" />
             </div>
         )
     }
 
+    handlePostComment = comment => {
+        const {article,postComment} = this.props
+        postComment(comment,article.id)
+    }
+    
     handleDeleteArticle = ev => {
         ev.preventDefault()
         const { deleteArticle, article } = this.props
@@ -52,15 +56,18 @@ class Article extends Component {
 
 Article.propTypes = {
     article: PropTypes.shape({
+        id: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         comments: PropTypes.array,
         text: PropTypes.string
     }).isRequired,
     //from connect
-    deleteArticle: PropTypes.func
+    deleteArticle: PropTypes.func,
+    postComment: PropTypes.func
 }
 
 
 export default connect(null, {
-    deleteArticle
+    deleteArticle,
+    postComment
 })(Article)

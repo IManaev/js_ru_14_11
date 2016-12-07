@@ -11,11 +11,12 @@ class CommentList extends Component {
         comments: PropTypes.array.isRequired,
         //from toggleOpen decorator
         isOpen: PropTypes.bool.isRequired,
-        toggleOpen: PropTypes.func.isRequired
+        toggleOpen: PropTypes.func.isRequired,
+        postComment: PropTypes.func.isRequired
     }
 
     static defaultProps = {
-        comments: []
+        comments: [],
     }
 
 
@@ -26,7 +27,6 @@ class CommentList extends Component {
     componentWillUpdate() {
         //console.log('---', 'CL will update')
     }
-
 
     render() {
         return (
@@ -45,8 +45,8 @@ class CommentList extends Component {
     }
 
     getBody() {
-        const { comments, isOpen } = this.props
-        const commentForm = <NewCommentForm />
+        const { comments, isOpen,postComment } = this.props
+        const commentForm = <NewCommentForm postComment={postComment}/>
         if (!isOpen || !comments.length) return <div>{commentForm}</div>
         const commentItems = comments.map(comment => <li key = {comment.id}><Comment comment = {comment} /></li>)
         return <div><ul>{commentItems}</ul>{commentForm}</div>

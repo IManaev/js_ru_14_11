@@ -6,6 +6,14 @@ class NewCommentForm extends Component {
         user: ''
     }
 
+    static propTypes = {
+        postComment:PropTypes.func,
+    }
+
+    static defaultProps = {
+        postComment:()=>{}
+    }
+
     handleChange = field => ev => {
         if (ev.target.value.length > 5) return
         this.setState({
@@ -16,6 +24,7 @@ class NewCommentForm extends Component {
     handleSubmit = ev => {
         ev.preventDefault()
         console.log('---', 'adding comment')
+        this.props.postComment(this.state)
         this.setState({
             user: '',
             text: ''

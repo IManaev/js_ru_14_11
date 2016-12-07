@@ -1,4 +1,4 @@
-import { DELETE_ARTICLE } from '../constants'
+import { DELETE_ARTICLE,POST_COMMENT } from '../constants'
 
 export function deleteArticle(articleId) {
     return {
