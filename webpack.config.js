@@ -3,6 +3,7 @@ var path = require('path')
 module.exports = {
     devtool: 'source-map',
     entry: [
+        'babel-polyfill',
         './src/app.js'
     ],
     output: {

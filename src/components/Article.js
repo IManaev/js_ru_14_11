@@ -14,7 +14,7 @@ class Article extends Component {
 */
 
     componentWillUpdate() {
-        console.log('---', 'updating Article')
+        // console.log('---', 'updating Article')
     }
 
     componentWillReceiveProps(nextProps) {
@@ -22,7 +22,7 @@ class Article extends Component {
     }
 
     componentDidUpdate() {
-        console.log('---', findDOMNode(this.refs.comments))
+        // console.log('---', findDOMNode(this.refs.comments))
     }
 
     render() {

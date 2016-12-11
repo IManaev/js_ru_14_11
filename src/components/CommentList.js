@@ -1,26 +1,30 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { addComment } from '../AC/comments'
+import { addComment,loadArticleComments } from '../AC/comments'
 import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
 import NewCommentForm from './NewCommentForm'
 
 class CommentList extends Component {
     static propTypes = {
-        commentIds: PropTypes.array.isRequired,
         //from connect
         comments: PropTypes.array.isRequired,
         //from toggleOpen decorator
         isOpen: PropTypes.bool.isRequired,
-        toggleOpen: PropTypes.func.isRequired
+        toggleOpen: PropTypes.func.isRequired,
+        loadArticleComments: PropTypes.func.isRequired
     }
 
     static defaultProps = {
         comments: []
     }
 
+    componentDidMount() {
+        const {article} = this.props
+        this.props.loadArticleComments(article.id)
+    }
 
-    componentWillReceiveProps() {
+    componentWillReceiveProps(nextProps) {
         //console.log('---', 'CL receiving props')
     }
 
@@ -34,10 +38,15 @@ class CommentList extends Component {
             <div>
                 {this.getButton()}
                 {this.getBody()}
+                {this.getCommentsLoading()}
             </div>
         )
     }
 
+    getCommentsLoading(){
+        const {loading} = this.props
+        return loading ? <div>Loading</div> : null
+    }
 
     getButton() {
         const { comments, isOpen, toggleOpen } = this.props
@@ -54,6 +63,15 @@ class CommentList extends Component {
     }
 }
 
-export default connect((state, props) => ({
-    comments: (props.article.comments || []).map(id => state.comments.get(id))
-}), { addComment })(toggleOpen(CommentList))
+export default connect((state, props) => {
+    const stateComments = state.comments.entities.valueSeq().toArray()
+    const comments = (props.article.comments || []).map(id => {
+        return stateComments.find(item => {
+            return item.get('id') == id
+        })
+    })
+    return {
+        comments: comments,
+        loading:state.comments.loading
+    }
+}, { addComment, loadArticleComments})(toggleOpen(CommentList))
