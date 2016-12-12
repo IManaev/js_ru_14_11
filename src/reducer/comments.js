@@ -21,9 +21,11 @@ export default (comments = defaultState, action) => {
     switch (type) {
 
         case LOAD_ARTICLE_COMMENTS + START:
+              //здесь не достаточно повесить loading на весь comments, ведь ты для конкрентной статьи загружаешь
             return comments.set('loading', true)
 
         case LOAD_ARTICLE_COMMENTS + SUCCESS:
+            //вот это лишнее, используй mergeIn
             const commentsArr = comments.entities.valueSeq().toArray().concat(payload)
             return comments
                 .set('entities',arrayToMap(commentsArr,CommentModel))
