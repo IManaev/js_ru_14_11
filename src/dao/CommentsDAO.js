@@ -13,6 +13,7 @@ const URL = {
 /**
  * just to keep action creator clear
  */
+//как по мне - ты перемудрил с этим модулем, достаточно тяжело читается + внес циклическую зависимость между модулями
 export default class CommentsDAO {
     
     static needsLoading(comments,commentsIds){
