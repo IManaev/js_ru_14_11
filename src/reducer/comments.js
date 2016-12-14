@@ -18,6 +18,7 @@ export default (comments = defaultState, action) => {
         case ADD_COMMENT:
             return comments.set(generatedId, {...payload.comment, id: generatedId})
         case LOAD_COMMENTS_PAGE + SUCCESS:
+            //не очень хорошая логика - не хранить страницы для которых загружал - сломается если сначала загрузить комменты для статьи
             return comments.mergeIn(['entities'], arrayToMap(response.records, CommentModel))
 
         case LOAD_COMMENTS + SUCCESS:
