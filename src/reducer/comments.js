@@ -1,4 +1,4 @@
-import { ADD_COMMENT, LOAD_COMMENTS, SUCCESS } from '../constants'
+import { ADD_COMMENT, LOAD_COMMENTS, SUCCESS,LOAD_COMMENTS_PAGE } from '../constants'
 import { arrayToMap, ReducerState } from '../utils'
 import { Record, Map } from 'immutable'
 
@@ -17,6 +17,8 @@ export default (comments = defaultState, action) => {
     switch (type) {
         case ADD_COMMENT:
             return comments.set(generatedId, {...payload.comment, id: generatedId})
+        case LOAD_COMMENTS_PAGE + SUCCESS:
+            return comments.mergeIn(['entities'], arrayToMap(response.records, CommentModel))
 
         case LOAD_COMMENTS + SUCCESS:
             return comments.mergeIn(['entities'], arrayToMap(response, CommentModel))
