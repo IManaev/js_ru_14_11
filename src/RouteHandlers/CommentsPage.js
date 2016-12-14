@@ -16,7 +16,7 @@ class CommentsPage extends Component {
             page:PropTypes.string
         }).isRequired
     };
-
+    //а при обновлении как быть
     componentDidMount(){
         this.props.loadCommentsByPage(this.props.params.page)
     }
@@ -27,13 +27,14 @@ class CommentsPage extends Component {
         return <div><ul>{commentItems}</ul></div>
     }
 }
-
+//я советовал не использовать здесь connect
 export default connect((state, props) => {
     const {page} = props.params
     console.log('prepare to render comments',page,state.comments.entities.valueSeq().toArray())
     const start = page > 0 ? (page-1)*PAGE_SIZE : 0
     const end = page > 0 ? (page)*PAGE_SIZE : PAGE_SIZE
     return {
+        //лучше .slice, зачем тебе лишние мутации
         comments: state.comments.entities.valueSeq().toArray().splice(start,end)
     }
 
